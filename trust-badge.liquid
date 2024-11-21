@@ -1,0 +1,151 @@
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<!-- Add the slick-theme.css if you want default styling -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+>
+<!-- Add the slick-theme.css if you want default styling -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+>
+
+<style>
+.ze-shipping-silder-wrapper{
+    padding: 30px 0;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+}
+.ze-shipping-single-slide{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.ze-shipping-single-slide-image{
+    width: 60px;
+}
+.ze-shipping-single-slide-title{
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+}
+.slick-dots li button:before {
+    font-size: 10px;
+}
+</style>
+
+
+    <section class="ze-shipping-silder-wrapper">
+      <div class="ze-shipping-sider">
+        {% for slide in section.blocks %}
+        <!-- Shipping single slide start here -->
+        <div class="ze-shipping-single-slide">
+          {% if slide.settings.slide__image != blank %}
+            <img class="ze-shipping-single-slide-image" src="{{ slide.settings.slide__image | image_url }}" alt="image" width="" height="">
+            {% endif %}
+            <h2 class="ze-shipping-single-slide-title"> {{ slide.settings.slide__heading }}</h2>
+        </div>
+        <!-- Shipping single slide end here -->
+          {% endfor %}
+      </div>
+    </section>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+
+    <script type="text/javascript">
+      $(".ze-shipping-sider").slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: false,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              dots: true
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              dots: true,
+            },
+          },
+          // You can unslick at a given breakpoint now by adding:
+          // settings: "unslick"
+          // instead of a settings object
+        ],
+      });
+    </script>
+
+{% schema %}
+{
+  "name": "ZE Shipping Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Single Slide Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "slide__image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "slide__heading",
+          "label": "Slide Heading",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ZE Shipping Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
